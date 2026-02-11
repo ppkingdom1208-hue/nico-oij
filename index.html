@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>nico oji | Official Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         :root {
@@ -17,27 +18,28 @@
             margin: 0; padding: 0;
             background-color: var(--bg-color);
             color: var(--text-color);
-            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            font-family: 'Shippori Mincho', serif; /* 明朝体に変更 */
             overflow-x: hidden;
             scroll-behavior: smooth;
         }
 
-        /* --- ローディング（ロゴをより大きく） --- */
+        /* --- ローディング（ロゴをさらに超特大に） --- */
         #loader {
             position: fixed; inset: 0; background: #000;
             display: flex; justify-content: center; align-items: center; z-index: 9999;
             transition: opacity 1.5s ease;
         }
         .loading-logo {
-            width: 220px; opacity: 0;
-            filter: drop-shadow(0 0 20px var(--accent-color));
-            animation: logoFadeIn 4s forwards;
+            width: 300px; /* PCサイズ */
+            opacity: 0;
+            filter: drop-shadow(0 0 30px var(--accent-color));
+            animation: logoFadeIn 4.5s forwards;
         }
         @keyframes logoFadeIn {
-            0% { opacity: 0; transform: scale(0.85); }
-            30% { opacity: 1; transform: scale(1); }
-            80% { opacity: 1; transform: scale(1); }
-            100% { opacity: 0; transform: scale(1.05); }
+            0% { opacity: 0; transform: scale(0.8); }
+            20% { opacity: 1; transform: scale(1); }
+            85% { opacity: 1; transform: scale(1.05); }
+            100% { opacity: 0; transform: scale(1.1); }
         }
 
         /* --- メイン構成 --- */
@@ -46,16 +48,14 @@
             display: flex; flex-direction: column; align-items: center;
         }
 
-        /* 立ち絵：スマホではさらに透過させて文字を優先 */
         .tatie {
             position: fixed; bottom: 0; left: 5%; height: 95vh; z-index: 1;
-            filter: brightness(0.6) drop-shadow(0 0 20px rgba(255, 0, 122, 0.2));
+            filter: brightness(0.5) drop-shadow(0 0 20px rgba(255, 0, 122, 0.2));
             pointer-events: none; transition: 0.3s;
         }
 
-        /* 上部ロゴ */
         .header-logo {
-            margin-top: 60px; width: 140px; opacity: 0.4; z-index: 3;
+            margin-top: 60px; width: 160px; opacity: 0.5; z-index: 3;
             filter: grayscale(1) invert(1);
         }
 
@@ -65,49 +65,51 @@
         }
 
         h1 {
-            font-size: 3.5rem; font-weight: 200; letter-spacing: 0.3em; margin: 0;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+            font-size: 4rem; font-weight: 700; letter-spacing: 0.3em; margin: 0;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 255, 255, 0.2);
         }
 
         .message {
-            margin-top: 2.5rem; font-size: 1.1rem; color: var(--text-color);
-            line-height: 2.2; letter-spacing: 0.1em; opacity: 0;
+            margin-top: 2.5rem; font-size: 1.2rem; color: var(--text-color);
+            line-height: 2.5; letter-spacing: 0.15em; opacity: 0;
             transform: translateY(20px); transition: 2s ease;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8);
         }
 
-        /* --- ナビゲーション：縦並びリスト --- */
+        /* --- ナビゲーション --- */
         .nav-links {
             position: relative; z-index: 10;
-            display: flex; flex-direction: column; gap: 25px;
+            display: flex; flex-direction: column; gap: 20px;
             padding: 100px 0 150px; align-items: center; width: 100%;
         }
 
         .nav-item {
             color: var(--text-color); text-decoration: none;
             display: flex; align-items: center; gap: 25px;
-            width: 280px; padding: 20px;
+            width: 300px; padding: 22px;
             background: rgba(255, 255, 255, 0.03);
-            border-right: 1px solid rgba(255, 255, 255, 0.1);
             border-left: 3px solid var(--accent-color);
             transition: 0.4s; opacity: 0; transform: translateY(40px);
         }
 
         .nav-item:hover {
-            background: rgba(255, 0, 122, 0.1);
+            background: rgba(255, 0, 122, 0.15);
             transform: scale(1.05);
+            border-left: 3px solid #fff;
         }
 
         .nav-item i { font-size: 1.6rem; color: var(--accent-color); width: 35px; text-align: center; }
-        .nav-item span { font-size: 0.9rem; letter-spacing: 0.2em; font-weight: 300; }
+        .nav-item span { font-size: 1rem; letter-spacing: 0.2em; }
 
         /* --- スマホ最適化 --- */
         @media (max-width: 768px) {
-            .tatie { height: 70vh; left: 50%; transform: translateX(-50%) !important; opacity: 0.3; filter: brightness(0.4); }
+            .loading-logo { width: 200px; } /* スマホでもデカく */
+            .tatie { height: 75vh; left: 50%; transform: translateX(-50%) !important; opacity: 0.3; }
             .content { text-align: center; margin-top: 5vh; }
-            h1 { font-size: 1.8rem; letter-spacing: 0.15em; }
-            .message { font-size: 0.9rem; line-height: 2.4; margin-top: 1.5rem; }
-            .header-logo { width: 100px; margin-top: 40px; }
-            .nav-item { width: 80%; }
+            h1 { font-size: 2.2rem; letter-spacing: 0.1em; }
+            .message { font-size: 1rem; line-height: 2.2; }
+            .header-logo { width: 120px; }
+            .nav-item { width: 85%; padding: 18px; }
         }
     </style>
 </head>
@@ -125,7 +127,6 @@
         <div class="content">
             <h1 id="mainTitle">－共有こそ価値だ</h1>
             <div class="message" id="subMessage">
-                nico ojiです<br>
                 この世のサブカルチャーをこよなく愛する悪魔です<br>
                 あなたの"好き"を僕に教えてくれませんか？
             </div>
@@ -136,7 +137,7 @@
                 <i class="fab fa-youtube"></i><span>YOUTUBE</span>
             </a>
             <a href="https://x.com/rvlj252" target="_blank" class="nav-item">
-                <i class="fab fa-x-twitter"></i><span>X (TWITTER)</span>
+                <i class="fab fa-x-twitter"></i><span>X</span>
             </a>
             <a href="https://x.gd/LViDB" target="_blank" class="nav-item">
                 <i class="fas fa-shopping-cart"></i><span>GOODS</span>
@@ -154,7 +155,6 @@
     </main>
 
     <script>
-        // フェードイン制御
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const loader = document.getElementById('loader');
@@ -167,30 +167,25 @@
             }, 4000);
         });
 
-        // スクロールで順番に表示させる
-        const observerOptions = { threshold: 0.2 };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry, index) => {
                 if (entry.isIntersecting) {
-                    // 少しずつ時間をずらして表示
                     setTimeout(() => {
                         entry.target.style.opacity = "1";
                         entry.target.style.transform = "translateY(0)";
                     }, index * 100); 
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.1 });
 
         document.querySelectorAll('.nav-item').forEach(item => {
             observer.observe(item);
         });
 
-        // パララックス（PCのみ）
         document.addEventListener('mousemove', (e) => {
             if(window.innerWidth > 768) {
                 const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
-                const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
-                document.getElementById('heroImage').style.transform = `translate(${moveX}px, ${moveY}px)`;
+                document.getElementById('heroImage').style.transform = `translate(${moveX}px, 0)`;
             }
         });
     </script>
