@@ -11,26 +11,25 @@
             --bg-color: #0d0d0d;
             --accent-color: #ff007a;
             --text-color: #f2f2f2;
-            --gray-color: #aaa;
         }
 
         body, html {
             margin: 0; padding: 0;
             background-color: var(--bg-color);
             color: var(--text-color);
-            font-family: 'Shippori Mincho', serif; /* 明朝体に変更 */
+            font-family: 'Shippori Mincho', serif;
             overflow-x: hidden;
             scroll-behavior: smooth;
         }
 
-        /* --- ローディング（ロゴをさらに超特大に） --- */
+        /* --- ローディング（超特大ロゴ） --- */
         #loader {
             position: fixed; inset: 0; background: #000;
             display: flex; justify-content: center; align-items: center; z-index: 9999;
             transition: opacity 1.5s ease;
         }
         .loading-logo {
-            width: 300px; /* PCサイズ */
+            width: 300px;
             opacity: 0;
             filter: drop-shadow(0 0 30px var(--accent-color));
             animation: logoFadeIn 4.5s forwards;
@@ -51,7 +50,7 @@
         .tatie {
             position: fixed; bottom: 0; left: 5%; height: 95vh; z-index: 1;
             filter: brightness(0.5) drop-shadow(0 0 20px rgba(255, 0, 122, 0.2));
-            pointer-events: none; transition: 0.3s;
+            pointer-events: none;
         }
 
         .header-logo {
@@ -73,7 +72,6 @@
             margin-top: 2.5rem; font-size: 1.2rem; color: var(--text-color);
             line-height: 2.5; letter-spacing: 0.15em; opacity: 0;
             transform: translateY(20px); transition: 2s ease;
-            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8);
         }
 
         /* --- ナビゲーション --- */
@@ -101,15 +99,20 @@
         .nav-item i { font-size: 1.6rem; color: var(--accent-color); width: 35px; text-align: center; }
         .nav-item span { font-size: 1rem; letter-spacing: 0.2em; }
 
-        /* --- スマホ最適化 --- */
+        /* --- スマホ最適化（改行とサイズを修正） --- */
         @media (max-width: 768px) {
-            .loading-logo { width: 200px; } /* スマホでもデカく */
+            .loading-logo { width: 200px; }
             .tatie { height: 75vh; left: 50%; transform: translateX(-50%) !important; opacity: 0.3; }
-            .content { text-align: center; margin-top: 5vh; }
-            h1 { font-size: 2.2rem; letter-spacing: 0.1em; }
-            .message { font-size: 1rem; line-height: 2.2; }
-            .header-logo { width: 120px; }
-            .nav-item { width: 85%; padding: 18px; }
+            .content { text-align: center; margin-top: 5vh; width: 95%; }
+            
+            /* メインタイトルが1行に収まるよう調整 */
+            h1 { font-size: 1.6rem; letter-spacing: 0.1em; white-space: nowrap; } 
+            
+            /* メッセージがはみ出さないサイズに調整 */
+            .message { font-size: 0.85rem; line-height: 2; margin-top: 1.5rem; word-break: keep-all; }
+            
+            .header-logo { width: 100px; margin-top: 40px; }
+            .nav-item { width: 80%; padding: 15px; }
         }
     </style>
 </head>
@@ -121,11 +124,10 @@
 
     <main class="container">
         <img src="logo.png" class="header-logo" alt="">
-        
         <img src="tatie.png" class="tatie" id="heroImage" alt="nico oji">
         
         <div class="content">
-            <h1 id="mainTitle">－共有こそ価値だ</h1>
+            <h1 id="mainTitle">－共有こそ価値だ。</h1>
             <div class="message" id="subMessage">
                 この世のサブカルチャーをこよなく愛する悪魔です<br>
                 あなたの"好き"を僕に教えてくれませんか？
@@ -180,13 +182,6 @@
 
         document.querySelectorAll('.nav-item').forEach(item => {
             observer.observe(item);
-        });
-
-        document.addEventListener('mousemove', (e) => {
-            if(window.innerWidth > 768) {
-                const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
-                document.getElementById('heroImage').style.transform = `translate(${moveX}px, 0)`;
-            }
         });
     </script>
 </body>
