@@ -10,184 +10,104 @@
             --bg-color: #0d0d0d;
             --accent-color: #ff007a;
             --text-color: #f2f2f2;
-            --gray-color: #888;
+            --gray-color: #aaa;
         }
 
         body, html {
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             background-color: var(--bg-color);
             color: var(--text-color);
             font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
-            overflow: hidden;
-            -webkit-font-smoothing: antialiased;
-            height: 100%;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
-        /* --- ローディング演出 --- */
+        /* --- ローディング（ロゴをより大きく） --- */
         #loader {
-            position: fixed;
-            inset: 0;
-            background: #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
+            position: fixed; inset: 0; background: #000;
+            display: flex; justify-content: center; align-items: center; z-index: 9999;
             transition: opacity 1.5s ease;
         }
-
         .loading-logo {
-            width: 100px;
-            opacity: 0;
-            filter: drop-shadow(0 0 15px var(--accent-color));
+            width: 220px; opacity: 0;
+            filter: drop-shadow(0 0 20px var(--accent-color));
             animation: logoFadeIn 4s forwards;
         }
-
         @keyframes logoFadeIn {
-            0% { opacity: 0; transform: scale(0.9); }
+            0% { opacity: 0; transform: scale(0.85); }
             30% { opacity: 1; transform: scale(1); }
             80% { opacity: 1; transform: scale(1); }
-            100% { opacity: 0; transform: scale(1.1); }
+            100% { opacity: 0; transform: scale(1.05); }
         }
 
-        /* --- メインコンテンツ --- */
+        /* --- メイン構成 --- */
         .container {
-            position: relative;
-            width: 100%;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
+            position: relative; width: 100%; min-height: 100vh;
+            display: flex; flex-direction: column; align-items: center;
         }
 
+        /* 立ち絵：スマホではさらに透過させて文字を優先 */
         .tatie {
-            position: absolute;
-            bottom: 0;
-            left: 5%;
-            height: 95vh;
-            z-index: 2;
-            filter: drop-shadow(0 0 30px rgba(255, 0, 122, 0.2));
-            transition: transform 0.2s ease-out;
-            pointer-events: none;
+            position: fixed; bottom: 0; left: 5%; height: 95vh; z-index: 1;
+            filter: brightness(0.6) drop-shadow(0 0 20px rgba(255, 0, 122, 0.2));
+            pointer-events: none; transition: 0.3s;
         }
 
-        .bg-logo {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 70%;
-            opacity: 0.03;
-            z-index: 1;
-            pointer-events: none;
+        /* 上部ロゴ */
+        .header-logo {
+            margin-top: 60px; width: 140px; opacity: 0.4; z-index: 3;
+            filter: grayscale(1) invert(1);
         }
 
         .content {
-            position: relative;
-            z-index: 3;
-            margin-right: 8%;
-            text-align: right;
-            padding: 20px;
+            position: relative; z-index: 3; width: 90%;
+            margin-top: 8vh; text-align: right;
         }
 
         h1 {
-            font-size: 3.5rem;
-            font-weight: 200;
-            letter-spacing: 0.4em;
-            margin: 0;
-            background: linear-gradient(90deg, #fff, #666);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 3.5rem; font-weight: 200; letter-spacing: 0.3em; margin: 0;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
         }
 
         .message {
-            margin-top: 2rem;
-            font-size: 1rem;
-            color: var(--gray-color);
-            line-height: 2.2;
-            letter-spacing: 0.15em;
-            opacity: 0;
-            transform: translateX(30px);
-            transition: all 2s ease;
+            margin-top: 2.5rem; font-size: 1.1rem; color: var(--text-color);
+            line-height: 2.2; letter-spacing: 0.1em; opacity: 0;
+            transform: translateY(20px); transition: 2s ease;
         }
 
-        /* --- リンク集（スマホ最適化） --- */
+        /* --- ナビゲーション：縦並びリスト --- */
         .nav-links {
-            position: absolute;
-            bottom: 40px;
-            right: 8%;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            z-index: 10;
+            position: relative; z-index: 10;
+            display: flex; flex-direction: column; gap: 25px;
+            padding: 100px 0 150px; align-items: center; width: 100%;
         }
 
         .nav-item {
-            color: var(--text-color);
-            text-decoration: none;
-            font-size: 0.7rem;
-            letter-spacing: 0.1em;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            transition: 0.4s;
-            opacity: 0.6;
+            color: var(--text-color); text-decoration: none;
+            display: flex; align-items: center; gap: 25px;
+            width: 280px; padding: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            border-left: 3px solid var(--accent-color);
+            transition: 0.4s; opacity: 0; transform: translateY(40px);
         }
 
         .nav-item:hover {
-            opacity: 1;
-            color: var(--accent-color);
-            transform: translateY(-5px);
+            background: rgba(255, 0, 122, 0.1);
+            transform: scale(1.05);
         }
 
-        .nav-item i {
-            font-size: 1.2rem;
-        }
+        .nav-item i { font-size: 1.6rem; color: var(--accent-color); width: 35px; text-align: center; }
+        .nav-item span { font-size: 0.9rem; letter-spacing: 0.2em; font-weight: 300; }
 
-        /* パルス背景 */
-        .pulse {
-            position: absolute;
-            bottom: 5%;
-            left: 10%;
-            width: 40vw;
-            height: 40vw;
-            background: radial-gradient(circle, rgba(255,0,122,0.15) 0%, rgba(13,13,13,0) 70%);
-            z-index: 1;
-            animation: heartBeat 6s infinite;
-        }
-
-        @keyframes heartBeat {
-            0%, 100% { transform: scale(1); opacity: 0.3; }
-            50% { transform: scale(1.1); opacity: 0.5; }
-        }
-
-        /* --- スマホ専用スタイル --- */
+        /* --- スマホ最適化 --- */
         @media (max-width: 768px) {
-            .container { justify-content: center; }
-            .tatie { 
-                height: 70vh; 
-                left: 50%; 
-                transform: translateX(-50%) !important; 
-                opacity: 0.4; 
-            }
-            .content { 
-                text-align: center; 
-                margin-right: 0; 
-                width: 100%;
-                margin-bottom: 15vh;
-            }
-            h1 { font-size: 1.8rem; letter-spacing: 0.2em; }
-            .message { font-size: 0.85rem; transform: translateY(20px); }
-            .nav-links { 
-                width: 90%; 
-                left: 5%; 
-                right: 5%;
-                bottom: 30px;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 15px;
-            }
-            .nav-item { font-size: 0.6rem; }
+            .tatie { height: 70vh; left: 50%; transform: translateX(-50%) !important; opacity: 0.3; filter: brightness(0.4); }
+            .content { text-align: center; margin-top: 5vh; }
+            h1 { font-size: 1.8rem; letter-spacing: 0.15em; }
+            .message { font-size: 0.9rem; line-height: 2.4; margin-top: 1.5rem; }
+            .header-logo { width: 100px; margin-top: 40px; }
+            .nav-item { width: 80%; }
         }
     </style>
 </head>
@@ -197,62 +117,80 @@
         <img src="logo.png" class="loading-logo" alt="nico oji">
     </div>
 
-    <div class="pulse"></div>
-    <img src="logo.png" class="bg-logo" alt="">
-
     <main class="container">
+        <img src="logo.png" class="header-logo" alt="">
+        
         <img src="tatie.png" class="tatie" id="heroImage" alt="nico oji">
         
         <div class="content">
-            <h1 id="mainTitle">－共有こそ価値だ。</h1>
+            <h1 id="mainTitle">－共有こそ価値だ</h1>
             <div class="message" id="subMessage">
-                この世のサブカルチャーをこよなく愛する悪魔です。<br>
+                nico ojiです<br>
+                この世のサブカルチャーをこよなく愛する悪魔です<br>
                 あなたの"好き"を僕に教えてくれませんか？
             </div>
         </div>
+
+        <nav class="nav-links">
+            <a href="https://www.youtube.com/@252projectby3" target="_blank" class="nav-item">
+                <i class="fab fa-youtube"></i><span>YOUTUBE</span>
+            </a>
+            <a href="https://x.com/rvlj252" target="_blank" class="nav-item">
+                <i class="fab fa-x-twitter"></i><span>X (TWITTER)</span>
+            </a>
+            <a href="https://x.gd/LViDB" target="_blank" class="nav-item">
+                <i class="fas fa-shopping-cart"></i><span>GOODS</span>
+            </a>
+            <a href="https://x.gd/4LV2D" target="_blank" class="nav-item">
+                <i class="fas fa-comment-dots"></i><span>MARSHMALLOW</span>
+            </a>
+            <a href="https://x.gd/Jxk8K" target="_blank" class="nav-item">
+                <i class="fas fa-heart"></i><span>WISHLIST</span>
+            </a>
+            <a href="https://x.gd/gEV5b" target="_blank" class="nav-item">
+                <i class="fas fa-gift"></i><span>GIFT</span>
+            </a>
+        </nav>
     </main>
 
-    <nav class="nav-links">
-        <a href="https://www.youtube.com/@252projectby3" target="_blank" class="nav-item">
-            <i class="fab fa-youtube"></i><span>YOUTUBE</span>
-        </a>
-        <a href="https://x.com/rvlj252" target="_blank" class="nav-item">
-            <i class="fab fa-x-twitter"></i><span>X</span>
-        </a>
-        <a href="https://x.gd/LViDB" target="_blank" class="nav-item">
-            <i class="fas fa-shopping-cart"></i><span>GOODS</span>
-        </a>
-        <a href="https://x.gd/4LV2D" target="_blank" class="nav-item">
-            <i class="fas fa-comment-dots"></i><span>MARSH</span>
-        </a>
-        <a href="https://x.gd/Jxk8K" target="_blank" class="nav-item">
-            <i class="fas fa-heart"></i><span>WISH</span>
-        </a>
-        <a href="https://x.gd/gEV5b" target="_blank" class="nav-item">
-            <i class="fas fa-gift"></i><span>GIFT</span>
-        </a>
-    </nav>
-
     <script>
+        // フェードイン制御
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const loader = document.getElementById('loader');
                 loader.style.opacity = '0';
                 setTimeout(() => {
                     loader.style.display = 'none';
-                    const msg = document.getElementById('subMessage');
-                    msg.style.opacity = '1';
-                    msg.style.transform = window.innerWidth <= 768 ? 'translateY(0)' : 'translateX(0)';
+                    document.getElementById('subMessage').style.opacity = '1';
+                    document.getElementById('subMessage').style.transform = 'translateY(0)';
                 }, 1500);
             }, 4000);
         });
 
+        // スクロールで順番に表示させる
+        const observerOptions = { threshold: 0.2 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    // 少しずつ時間をずらして表示
+                    setTimeout(() => {
+                        entry.target.style.opacity = "1";
+                        entry.target.style.transform = "translateY(0)";
+                    }, index * 100); 
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.nav-item').forEach(item => {
+            observer.observe(item);
+        });
+
+        // パララックス（PCのみ）
         document.addEventListener('mousemove', (e) => {
             if(window.innerWidth > 768) {
-                const moveX = (e.clientX - window.innerWidth / 2) * 0.015;
-                const moveY = (e.clientY - window.innerHeight / 2) * 0.015;
+                const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+                const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
                 document.getElementById('heroImage').style.transform = `translate(${moveX}px, ${moveY}px)`;
-                document.getElementById('mainTitle').style.transform = `translate(${-moveX * 0.5}px, ${-moveY * 0.5}px)`;
             }
         });
     </script>
